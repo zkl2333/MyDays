@@ -1,0 +1,68 @@
+/* pages/index/index.wxs */
+page {
+  background: #eee;
+  padding-bottom: 200rpx;
+}
+
+/* 添加按钮 */
+.add {
+  opacity: 0.9;
+  position: fixed;
+  bottom: 80rpx;
+  right: 80rpx;
+  height: 120rpx;
+  width: 120rpx;
+  border-radius: 50%;
+  background: #3ba3d0;
+}
+
+.add>.x,.add>.y {
+  opacity: 10;
+  position: absolute;
+  background: #fff;
+}
+
+.add>.x {
+  left: 50%;
+  top: 50%;
+  margin-left: -7.5rpx;
+  margin-top: -30rpx;
+  height: 60rpx;
+  width: 15rpx;
+}
+
+.add>.y {
+  left: 50%;
+  top: 50%;
+  margin-left: -30rpx;
+  margin-top: -7.5rpx;
+  height: 15rpx;
+  width: 60rpx;
+}
+/* 列表 */
+.item {
+  padding: 30rpx;
+  /* position: relative; */
+  margin: 30rpx auto;
+  /* min-height: 230rpx; */
+  width: 650rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  box-shadow: 8rpx 8rpx 8rpx #ccc;
+}
+
+.item .name {
+  /* width: 600rpx; */
+  word-wrap: break-all;
+  font-size: 60rpx;
+  /* position: absolute; */
+  /* top: 60rpx; */
+  /* left: 50rpx; */
+}
+
+.item .day {
+  text-align: right;
+  /* position: absolute; */
+  /* bottom: 50rpx; */
+  /* right: 50rpx; */
+}

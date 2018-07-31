@@ -1,0 +1,56 @@
+/* pages/set/index.wxss */
+
+page {
+  background: #eee;
+  padding-bottom: 20rpx;
+}
+
+.clearfix::after {
+  content: " ";
+  display: block;
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.list {
+  line-height: 2;
+}
+
+.item {
+  margin: 30rpx;
+  padding: 20rpx;
+  background: #fff;
+  border-radius: 20rpx;
+}
+
+.item input {
+  height: 2em;
+  text-align: right;
+}
+
+.btn button {
+  margin: 30rpx;
+  border: none;
+  outline: none;
+}
+
+button::after {
+  border-radius: 30rpx;
+}
+
+.color {
+  margin-top: 80rpx;
+}
+
+.demo {
+  height: 80rpx;
+  border-radius: 15rpx;
+}
+

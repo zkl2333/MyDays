@@ -1,0 +1,11 @@
+<!--pages/index/index.wxml-->
+<block wx:for="{{days}}" wx:key='id'>
+  <view class="item" style='background-color:{{item.color}};height:{{item.height}}' id="{{item.id}}" bindtap="setDay"> 
+    <view class='name'>{{item.name}}</view>
+    <view class='day'>{{item.text}}{{item.day}}天</view>
+  </view>
+</block>
+<view class='add' bindtap='tapAdd'>
+  <view class='x'></view>
+  <view class='y'></view>
+</view>

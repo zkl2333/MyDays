@@ -1,0 +1,33 @@
+<!--pages/set/index.wxml-->
+<view class='list'>
+  <view class='title item clearfix'>
+    <text class='fl'>标题</text>
+    <input class='fr' placeholder="标题" value='{{dayName}}' bindinput='bindCreateDayNameInput' />
+  </view>
+  <view class='title item clearfix'>
+    <text class='fl'>日期</text>
+    <view class="section fr">
+      <picker mode="date" value="{{date}}" start="1900-09-01" end="2100-09-01" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+    </view>
+
+  </view>
+  <view class='title item clearfix'>
+    <text class='fl'>颜色</text>
+    <view class='color'>
+      <slider block-color="#f99" value="{{R}}" id="R" bindchange="sliderchange" min="0" max="255" show-value/>
+      <slider block-color="#9f9" value="{{G}}" id="G" bindchange="sliderchange" min="0" max="255" show-value/>
+      <slider block-color="#99f" value="{{B}}" id="B" bindchange="sliderchange" min="0" max="255" show-value/>
+    </view>
+    <view style='background-color:{{dayColor}}' class='demo'></view>
+    <input class='fr' placeholder="#ffffff" value='{{dayColor}}' bindinput='bindCreateDayColorInput' />
+  </view>
+</view>
+
+<view class='btn'>
+  <button wx:if="{{id}}" bindtap='delDay' type='warn'>删除</button>
+  <button bindtap='{{bindTap}}' type='primary'>{{btnText}}</button>
+</view>

@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/set/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#eee",
+    "backgroundColor": "#eee",
+    "navigationBarTitleText": "小日子",
+    "navigationBarTextStyle": "black"
+  }
+}
