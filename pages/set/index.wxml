@@ -4,7 +4,7 @@
     <text class='fl'>标题</text>
     <input class='fr' placeholder="标题" value='{{dayName}}' bindinput='bindCreateDayNameInput' />
   </view>
-  <view class='title item clearfix'>
+  <view class='item clearfix'>
     <text class='fl'>日期</text>
     <view class="section fr">
       <picker mode="date" value="{{date}}" start="1900-09-01" end="2100-09-01" bindchange="bindDateChange">
@@ -15,7 +15,7 @@
     </view>
 
   </view>
-  <view class='title item clearfix'>
+  <view class='item clearfix'>
     <text class='fl'>颜色</text>
     <view class='color'>
       <slider block-color="#f99" value="{{R}}" id="R" bindchange="sliderchange" min="0" max="255" show-value/>
@@ -25,6 +25,12 @@
     <view style='background-color:{{dayColor}}' class='demo'></view>
     <input class='fr' placeholder="#ffffff" value='{{dayColor}}' bindinput='bindCreateDayColorInput' />
   </view>
+</view>
+
+<view class='item clearfix'>
+  <image wx:if="{{img}}" src='{{img}}' mode='aspectFill'></image>
+  <button bindtap='bindChooseImage'>选择背景图片</button>
+  <button wx:if="{{img}}" bindtap='bindRemoveImage' type='warn' class='rm-img'>移除背景图片</button>
 </view>
 
 <view class='btn'>

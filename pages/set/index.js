@@ -1,5 +1,6 @@
 // pages/set/index.js
 import utils from '../../utils/util'
+let MyFile = new wx.BaaS.File()
 Page({
 
   sliderchange(e) {
@@ -46,6 +47,49 @@ Page({
     })
   },
 
+  bindChooseImage() {
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: (res) => {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        // 实例化文件操作对象
+
+        // 设置文件路径
+        let fileParams = {
+          filePath: res.tempFilePaths[0]
+        }
+        // 文件分类
+        let metaData = {
+          categoryName: 'SDK'
+        }
+        MyFile.upload(fileParams, metaData).then(
+          res => {
+            console.log(res)
+            console.log(this.data)
+            if (this.data.imgId) {
+              MyFile.delete(this.data.imgId)
+            }
+            this.setData({
+              img: res.data.path,
+              imgId: res.data.file.id
+            })
+            wx.showToast({
+              title: '上传成功',
+            })
+          },
+          err => { })
+      }
+    })
+  },
+
+  bindRemoveImage() {
+    this.setData({
+      img: '',
+    })
+  },
+
   setDay() {
     if (this.data.dayName == undefined) {
       wx.showToast({
@@ -68,11 +112,27 @@ Page({
 
   delDay() {
     let id = this.data.id
+    if (!this.data.img && this.data.imgId) {
+      wx.showLoading({
+        title: '正在删除图片',
+        mask: true,
+      })
+      MyFile.delete(this.data.imgId).then(res => {
+        wx.hideLoading()
+      }, err => {
+        wx.hideLoading()
+        wx.showToast({
+          title: '删除失败',
+          icon: 'none'
+        })
+      })
+    }
     wx.showModal({
       title: '确认您的操作',
       content: '是否删除这个项目？',
-      success: function (res) {
+      success: (res) => {
         if (res.confirm) {
+          MyFile.delete(this.data.imgId)
           utils.delDay(id, res => {
             wx.navigateBack({
               delta: 2
@@ -86,6 +146,8 @@ Page({
   saveDay() {
     if (this.setDay()) {
       let data = {
+        imgId: this.data.imgId,
+        img: this.data.img,
         color: this.data.dayColor,
         name: this.data.dayName,
         date: this.data.date
@@ -106,6 +168,8 @@ Page({
   updataDay() {
     if (this.setDay()) {
       let data = {
+        imgId: this.data.imgId,
+        img: this.data.img,
         color: this.data.dayColor,
         name: this.data.dayName,
         date: this.data.date
@@ -150,7 +214,9 @@ Page({
           B: parseInt(res.data.color.substr(5, 2), 16),
           dayColor: res.data.color,
           dayName: res.data.name,
-          date: utils.dateParse(res.data.date)
+          date: utils.dateParse(res.data.date),
+          img: res.data.img,
+          imgId: res.data.imgId
         })
       })
       this.setData({

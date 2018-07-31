@@ -40,12 +40,8 @@ Page({
           res.data.objects[i].text = "还有";
           res.data.objects[i].day = -day;
         }
-        // res.data.objects[i].height = (res.data.objects[i].name.length / 10 + 2) * 90 + 'rpx';
       }
       if (res.data.objects.length == 0) {
-        // this.setData({
-        //   p: this.data.p - 1
-        // })
         wx.showToast({
           title: '没有更多内容了',
           icon: 'none',
@@ -53,8 +49,7 @@ Page({
         })
       }
       this.setData({
-        // days: this.data.days.concat(res.data.objects)// bookList array, mock data in mock/mock.js
-        days: res.data.objects// bookList array, mock data in mock/mock.js
+        days: res.data.objects
       })
     })
   },
@@ -74,10 +69,6 @@ Page({
       title: '加载中',
       mask: true,
     })
-    this.setData({
-      days: [],
-      p: 0
-    })
     wx.getStorage({
       key: 'ifx_baas_uid',
       success: (res) => {
@@ -86,13 +77,17 @@ Page({
         console.log("已登陆")
       },
       fail: () => {
-        console.log("未登陆")        
+        console.log("未登陆")    
+        //定时器 重试登陆   
         let timer = setInterval(() => {
-          console.log("1")
+          console.log("重试")
           wx.getStorage({
             key: 'ifx_baas_uid',
             success: (res) => {
+              console.log("已登陆")
+              //获取列表
               this.fetchDaysList(0)
+              //清除定时器
               clearInterval(timer)
               wx.hideLoading()
             }

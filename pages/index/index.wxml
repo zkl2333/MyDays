@@ -1,8 +1,15 @@
 <!--pages/index/index.wxml-->
+
 <block wx:for="{{days}}" wx:key='id'>
-  <view class="item" style='background-color:{{item.color}};height:{{item.height}}' id="{{item.id}}" bindtap="setDay"> 
+  <view class="item" id="{{item.id}}" style='background-color:{{item.color}}' bindtap="setDay">
+    <view wx:if="{{item.img}}" class='img'>
+      <image src='{{item.img}}' mode='aspectFill'></image>
+    </view>
     <view class='name'>{{item.name}}</view>
-    <view class='day'>{{item.text}}{{item.day}}天</view>
+    <view class='day'>
+      {{item.text}}
+      <text>{{item.day}}</text> 天
+    </view>
   </view>
 </block>
 <view class='add' bindtap='tapAdd'>

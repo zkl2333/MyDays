@@ -49,6 +49,17 @@ button::after {
   margin-top: 80rpx;
 }
 
+.item image {
+  height: 500rpx;
+  width: 100%;
+  border-radius: 20rpx;
+  margin-bottom: 15rpx;
+}
+
+.rm-img {
+  margin-top: 15rpx;
+}
+
 .demo {
   height: 80rpx;
   border-radius: 15rpx;
