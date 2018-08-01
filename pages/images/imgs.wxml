@@ -1,17 +1,17 @@
 <!--pages/images/imgs.wxml-->
 <view class='img-list'>
   <block wx:for="{{imgs}}">
-    <view class='img-item' bindtap='setImg'>
-      <image bindtap='bindChooseImage' mode='aspectFill' data-img='{{item.imgSrc}}' data-id='{{item.imgId}}' src='{{item.imgSrc}}'></image>
+    <view class="img-item {{item.imgId==imgId?'active':''}}">
+      <image bindtap='bindChooseImage' mode='aspectFill' data-img='{{item.imgSrc}}' data-id='{{item.imgId}}' mode='aspectFill' data-img='{{item.imgSrc}}' data-id='{{item.imgId}}' src='{{item.imgSrc}}'></image>
     </view>
   </block>
 </view>
 
 <view class='btns'>
-<view>
-  <button bindtap='bindUplodImages'>上传</button>
-</view>
-<view>
-  <button type='primary' bindtap='setImg'>确认</button>
-</view>
+  <view>
+    <button bindtap='bindUplodImages'>上传</button>
+  </view>
+  <view>
+    <button type='primary' bindtap='setImg'>确认</button>
+  </view>
 </view>

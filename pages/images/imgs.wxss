@@ -6,6 +6,7 @@
 }
 
 .img-item {
+  border-radius: 20rpx;
   box-sizing: border-box;
   width: 350rpx;
   height: 300rpx;
@@ -23,7 +24,7 @@
   padding: 0;
   margin: 0;
   position: fixed;
-  bottom: 0;
+  bottom: 15rpx;
   width: 100%
 }
 
@@ -32,4 +33,9 @@
   display: inline-block;
   width: 40%;
   padding: 0 5%;
+}
+
+.active {
+  padding: 0;
+  border: 10rpx solid #abcdef;
 }

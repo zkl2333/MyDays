@@ -52,25 +52,6 @@ Page({
 
   // 选择图片，点击事件
   bindChooseImage() {
-    // wx.chooseImage({
-    //   count: 1, // 默认9
-    //   sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-    //   sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-    //   success: (res) => {
-    //     // 设置文件路径
-    //     this.setData({
-    //       filePath: res.tempFilePaths[0]
-    //     })
-    //     utils.uploadImg(MyFile, this.data.filePath, 'SDK', (res) => {
-    //       this.setData({
-    //         update: true,
-    //         filePath: '',
-    //         img: res.data.path,
-    //         imgId: res.data.file.id
-    //       })
-    //     })
-    //   }
-    // })
     wx.navigateTo({
       url: '../images/imgs',
       success: function(res) {},
