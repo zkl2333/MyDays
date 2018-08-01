@@ -45,7 +45,7 @@ page {
   /* min-height: 230rpx; */
   padding: 0;
   font-size: 0;
-  width: 650rpx;
+  width: 700rpx;
   background: #fff;
   border-radius: 20rpx;
   box-shadow: 8rpx 8rpx 8rpx #ccc;
@@ -62,7 +62,7 @@ page {
   border-radius: 20rpx;
   overflow: hidden;
   margin-bottom: -15rpx;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 

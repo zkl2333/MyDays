@@ -29,8 +29,11 @@
 
 <view class='item clearfix'>
   <image wx:if="{{img}}" src='{{img}}' mode='aspectFill'></image>
-  <button bindtap='bindChooseImage'>选择背景图片</button>
-  <button wx:if="{{img}}" bindtap='bindRemoveImage' type='warn' class='rm-img'>移除背景图片</button>
+  <view class='btn-img' wx:if="{{img}}">
+    <button bindtap='bindChooseImage'>选择背景图片</button>
+    <button wx:if="{{img}}" bindtap='bindRemoveImage' type='warn' class='rm-img'>移除背景图片</button>
+  </view>
+  <button wx:if="{{!img}}" bindtap='bindChooseImage'>选择背景图片</button>
 </view>
 
 <view class='btn'>

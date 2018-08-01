@@ -56,6 +56,10 @@ button::after {
   margin-bottom: 15rpx;
 }
 
+.item .local {
+  opacity: 0.5;
+}
+
 .rm-img {
   margin-top: 15rpx;
 }
@@ -65,3 +69,13 @@ button::after {
   border-radius: 15rpx;
 }
 
+.btn-img {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-img button {
+  padding: 0;
+  margin: 0;
+  width: 45%;
+}

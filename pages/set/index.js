@@ -2,7 +2,7 @@
 import utils from '../../utils/util'
 let MyFile = new wx.BaaS.File()
 Page({
-
+  //滑条变化事件
   sliderchange(e) {
     if (e.currentTarget.id == 'R') {
       this.setData({
@@ -22,12 +22,14 @@ Page({
     })
   },
 
+  // 设置日期
   bindDateChange: function (e) {
     this.setData({
       date: e.detail.value
     })
   },
 
+  // 设置标题
   bindCreateDayNameInput(e) {
     let that = this
     let value = e.detail.value
@@ -36,6 +38,7 @@ Page({
     })
   },
 
+  // 选择颜色
   bindCreateDayColorInput(e) {
     let that = this
     let value = e.detail.value
@@ -47,49 +50,43 @@ Page({
     })
   },
 
+  // 选择图片，点击事件
   bindChooseImage() {
-    wx.chooseImage({
-      count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: (res) => {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        // 实例化文件操作对象
-
-        // 设置文件路径
-        let fileParams = {
-          filePath: res.tempFilePaths[0]
-        }
-        // 文件分类
-        let metaData = {
-          categoryName: 'SDK'
-        }
-        MyFile.upload(fileParams, metaData).then(
-          res => {
-            console.log(res)
-            console.log(this.data)
-            if (this.data.imgId) {
-              MyFile.delete(this.data.imgId)
-            }
-            this.setData({
-              img: res.data.path,
-              imgId: res.data.file.id
-            })
-            wx.showToast({
-              title: '上传成功',
-            })
-          },
-          err => { })
-      }
+    // wx.chooseImage({
+    //   count: 1, // 默认9
+    //   sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+    //   sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+    //   success: (res) => {
+    //     // 设置文件路径
+    //     this.setData({
+    //       filePath: res.tempFilePaths[0]
+    //     })
+    //     utils.uploadImg(MyFile, this.data.filePath, 'SDK', (res) => {
+    //       this.setData({
+    //         update: true,
+    //         filePath: '',
+    //         img: res.data.path,
+    //         imgId: res.data.file.id
+    //       })
+    //     })
+    //   }
+    // })
+    wx.navigateTo({
+      url: '../images/imgs',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 
+  // 移除图片，点击事件
   bindRemoveImage() {
     this.setData({
       img: '',
     })
   },
 
+  // 设置参数
   setDay() {
     if (this.data.dayName == undefined) {
       wx.showToast({
@@ -98,41 +95,24 @@ Page({
         duration: 1000,
       })
       return false;
-    } else if (this.data.dayColor == undefined) {
-      wx.showToast({
-        title: '请选择颜色',
-        icon: 'none',
-        duration: 1000,
-      })
-      return false;
-    } else {
-      return true;
     }
+    return  {
+      imgId: this.data.ImgId,
+      img: this.data.img,
+      color: this.data.dayColor,
+      name: this.data.dayName,
+      date: this.data.date
+    };
   },
 
+  // 删除Day，点击事件
   delDay() {
-    let id = this.data.id
-    if (!this.data.img && this.data.imgId) {
-      wx.showLoading({
-        title: '正在删除图片',
-        mask: true,
-      })
-      MyFile.delete(this.data.imgId).then(res => {
-        wx.hideLoading()
-      }, err => {
-        wx.hideLoading()
-        wx.showToast({
-          title: '删除失败',
-          icon: 'none'
-        })
-      })
-    }
+    let id = this.data.id;
     wx.showModal({
       title: '确认您的操作',
       content: '是否删除这个项目？',
       success: (res) => {
         if (res.confirm) {
-          MyFile.delete(this.data.imgId)
           utils.delDay(id, res => {
             wx.navigateBack({
               delta: 2
@@ -143,15 +123,10 @@ Page({
     })
   },
 
+  // 保存Day，点击事件
   saveDay() {
-    if (this.setDay()) {
-      let data = {
-        imgId: this.data.imgId,
-        img: this.data.img,
-        color: this.data.dayColor,
-        name: this.data.dayName,
-        date: this.data.date
-      }
+    let data = this.setDay()
+    if (data) {
       utils.addDay(data, res => {
         wx.showToast({
           title: '成功',
@@ -165,15 +140,10 @@ Page({
     }
   },
 
+  // 更新Day，点击事件
   updataDay() {
-    if (this.setDay()) {
-      let data = {
-        imgId: this.data.imgId,
-        img: this.data.img,
-        color: this.data.dayColor,
-        name: this.data.dayName,
-        date: this.data.date
-      }
+    let data = this.setDay()
+    if (data) {
       let id = this.data.id
       utils.updataDay(data, id, res => {
         wx.showToast({
@@ -230,53 +200,4 @@ Page({
       })
     }
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
 })
