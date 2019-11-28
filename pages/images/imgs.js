@@ -45,8 +45,9 @@ Page({
   bindChooseImage: function(e) {
     console.log(e)
     this.setData({
+      id: e.currentTarget.dataset.id,
       img: e.currentTarget.dataset.img,
-      imgId: e.currentTarget.dataset.id
+      imgId: e.currentTarget.dataset.imgid
     })
   },
 
@@ -62,6 +63,15 @@ Page({
     })
   },
 
+  delImg: function(e) {
+    utils.delImg(MyFile, this.data.id, this.data.imgId).then(() => {
+      utils.getImgs(wx.BaaS.storage.get('uid'), (res) => {
+        this.setData({
+          imgs: res.data.objects
+        })
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

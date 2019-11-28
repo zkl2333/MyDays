@@ -113,21 +113,60 @@ let delDay = (id, cb) => {
   wx.hideLoading()
 }
 
-let delImg = (MyFile, id) => {
+let delImg = (MyFile, id, imgId) => {
   console.log("删除图片", id)
   wx.showLoading({
     title: '正在删除图片',
     mask: true,
   })
-  MyFile.delete(id).then(res => {
+  let tableId = getApp().globalData.imgTableId,
+    imgs = new wx.BaaS.TableObject(tableId)
+  MyFile.delete(imgId).then(res => {
     wx.hideLoading()
   }, err => {
     wx.hideLoading()
     wx.showToast({
-      title: '删除失败',
+      title: '删除文件失败',
       icon: 'none'
     })
   })
+  imgs.delete(id).then(res => {
+    wx.hideLoading()
+  }, err => {
+    wx.hideLoading()
+    wx.showToast({
+      title: '删除图片失败',
+      icon: 'none'
+    })
+  })
+
+
+  // imgs.get(id).then(res => {
+  //   // success
+  //   MyFile.delete(res.data.imgId).then(res => {
+  //     wx.hideLoading()
+  //   }, err => {
+  //     wx.hideLoading()
+  //     wx.showToast({
+  //       title: '删除文件失败',
+  //       icon: 'none'
+  //     })
+  //   }).then(() => {
+  //     imgs.delete(id).then(res => {
+  //       // success
+  //     }, err => {
+  //       // err
+  //     })
+  //   })
+  // }, err => {
+  //   // err
+  //   wx.hideLoading()
+  //   wx.showToast({
+  //     title: '获取文件对象失败',
+  //     icon: 'none'
+  //   })
+  // })
+
 }
 
 let uploadImg = (MyFile, filePath, categoryName, cb) => {
@@ -140,21 +179,23 @@ let uploadImg = (MyFile, filePath, categoryName, cb) => {
     categoryName: categoryName
   }
   MyFile.upload(fileParams, metaData).then(
-    (res,) => {
+    (res, ) => {
       // 传入图片数据表
       let tableId = getApp().globalData.imgTableId,
         imgs = new wx.BaaS.TableObject(tableId),
         img = imgs.create()
       img.set({
-        imgSrc: res.data.path,
-        imgId: res.data.file.id
-      })
+          imgSrc: res.data.path,
+          imgId: res.data.file.id
+        })
         .save()
         .catch(err => console.dir(err))
-      wx.showToast({title: '上传成功'})
+      wx.showToast({
+        title: '上传成功'
+      })
       cb(res);
     },
-    err => { })
+    err => {})
 }
 
 module.exports = {

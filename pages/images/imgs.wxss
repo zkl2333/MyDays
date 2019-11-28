@@ -31,8 +31,8 @@
 .btns view {
   margin: 0;
   display: inline-block;
-  width: 40%;
-  padding: 0 5%;
+  width: 30%;
+  padding: 0 1.5%;
 }
 
 .active {
