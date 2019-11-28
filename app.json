@@ -10,5 +10,6 @@
     "backgroundColor": "#eee",
     "navigationBarTitleText": "数着日子",
     "navigationBarTextStyle": "black"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }
