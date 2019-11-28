@@ -179,21 +179,23 @@ let uploadImg = (MyFile, filePath, categoryName, cb) => {
     categoryName: categoryName
   }
   MyFile.upload(fileParams, metaData).then(
-    (res, ) => {
+    (res) => {
       // 传入图片数据表
       let tableId = getApp().globalData.imgTableId,
         imgs = new wx.BaaS.TableObject(tableId),
         img = imgs.create()
+      let tid
       img.set({
           imgSrc: res.data.path,
           imgId: res.data.file.id
         })
-        .save()
+        .save().then(res => {
+          cb(res);
+        })
         .catch(err => console.dir(err))
       wx.showToast({
         title: '上传成功'
       })
-      cb(res);
     },
     err => {})
 }

@@ -22,6 +22,7 @@ Page({
   },
 
   bindUplodImages: function() {
+    let _this = this
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -32,10 +33,16 @@ Page({
           filePath: res.tempFilePaths[0]
         })
         utils.uploadImg(MyFile, this.data.filePath, 'SDK', (res) => {
-          utils.getImgs(wx.BaaS.storage.get('uid'), (res) => {
-            this.setData({
-              imgs: res.data.objects
-            })
+          console.log(res)
+          // utils.getImgs(wx.BaaS.storage.get('uid'), (res) => {
+          //   this.setData({
+          //     imgs: res.data.objects
+          //   })
+          // })
+          let imgs = this.data.imgs
+          imgs.push(res.data)
+          _this.setData({
+            imgs: imgs
           })
         })
       }
@@ -47,7 +54,8 @@ Page({
     this.setData({
       id: e.currentTarget.dataset.id,
       img: e.currentTarget.dataset.img,
-      imgId: e.currentTarget.dataset.imgid
+      imgId: e.currentTarget.dataset.imgid,
+      idx: e.currentTarget.dataset.idx
     })
   },
 
@@ -64,12 +72,11 @@ Page({
   },
 
   delImg: function(e) {
-    utils.delImg(MyFile, this.data.id, this.data.imgId).then(() => {
-      utils.getImgs(wx.BaaS.storage.get('uid'), (res) => {
-        this.setData({
-          imgs: res.data.objects
-        })
-      })
+    utils.delImg(MyFile, this.data.id, this.data.imgId)
+    let imgs = this.data.imgs
+    imgs.splice(this.data.idx, 1)
+    this.setData({
+      imgs: imgs
     })
   },
   /**
